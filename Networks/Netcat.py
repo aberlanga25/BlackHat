@@ -12,14 +12,16 @@ target = ""
 upload_destination = ""
 port = 0
 
+
 def usage():
     print("BHP Net Tool")
-    print( "Usage: bhpnet.py -t target_host -p port")
+    print("Usage: Netcat.py -t target_host -p port")
     print("-l --listen - listen on [host]:[port] for incoming connections")
     print("-e --execute=file_to_run - execute the given file upon receiving a connection")
     print("-c --command - initialize a command shell")
     print("-u --upload=destination - upon receiving connection upload a file and write to [destination]")
     sys.exit(0)
+
 
 def main():
     global listen
