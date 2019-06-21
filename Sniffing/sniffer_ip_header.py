@@ -2,8 +2,8 @@ import os
 from ctypes import *
 import socket
 import struct
+import sys
 
-host = "127.0.0.1"
 
 class IP(Structure):
 
@@ -59,6 +59,10 @@ class ICMP(Structure):
 if __name__ == '__main__':
 
     # this should look familiar from the previous example
+    if not len(sys.argv[1:]):
+        host = "127.0.0.1"
+    else:
+        host = sys.argv[1]
     if os.name == "nt":
         socket_protocol = socket.IPPROTO_IP
     else:
