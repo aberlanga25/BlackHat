@@ -6,6 +6,6 @@
     "module" : "environment"
   },
   {
-    "module" : "keyLogger"
+    "module" : "screenShot"
   }
 ]
