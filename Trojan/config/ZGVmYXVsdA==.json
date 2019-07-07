@@ -5,7 +5,4 @@
   {
     "module" : "environment"
   },
-  {
-    "module" : "screenShot"
-  }
 ]
