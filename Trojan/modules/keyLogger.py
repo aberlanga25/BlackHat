@@ -80,7 +80,6 @@ def run(**args):
     while True:
 
         pythoncom.PumpWaitingMessages()
-        if time.time() > start + PERIOD_OF_TIME : break
-
-    #rint(str(data))
-    return str(data)
+        if time.time() > start + PERIOD_OF_TIME :
+            print(str(data))
+            return str(data)
